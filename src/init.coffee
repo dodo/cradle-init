@@ -28,8 +28,11 @@ class CradleInit
         @views = {}
 
         # debugging
-        if opts.debug and typeof opts.debug isnt 'function'
-            @log = console.log
+        if opts.debug
+            if typeof opts.debug is 'function'
+                @log = opts.debug
+            else
+                @log = console.log
         else
             @log = -> # dummy
 
