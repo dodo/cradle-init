@@ -4,13 +4,13 @@ var init = require('../')
   , dbname = 'cradle-init-test'
 exports.__setup = function (test){
   request({
-    uri:'http://localhost:5984/cradle-init-test', 
+    uri:'http://localhost:5984/cradle-init-test',
     method:'DELETE'
-  }, 
+  },
   function (err){
     if(err)
       throw err //test.error(err)
-    test.done()  
+    test.done()
   })
 }
 /*
@@ -39,7 +39,7 @@ exports ['database exists'] = function (test){
 
 exports ['database returned'] = function (test){
 
-  var returned = 
+  var returned =
   init(dbname,{host:'localhost', port:5984}).ready(function (err,db){
     it(err).equal(null)
     it(db).ok()
@@ -54,8 +54,8 @@ exports ['intialize views'] = function (test){
   .view('group/item', map = function (doc){
     emit(1,"HELLO")
   }, reduce = function (keys,values){
-  
-  })  
+
+  })
   .ready(function (err,db){
     it(err).equal(null)
     it(db).ok()
