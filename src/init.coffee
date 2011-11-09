@@ -18,7 +18,7 @@ update_views = (callback) ->
 
 
 
-class CradleSetup
+class CradleInit
     constructor: (@name, @config = {}, opts = {}) ->
 
         if typeof @name is 'object'
@@ -71,12 +71,12 @@ class CradleSetup
 
 # exports
 
-module.exports = -> new CradleSetup arguments...
-module.exports.CradleSetup = CradleSetup
+module.exports = -> new CradleInit arguments...
+module.exports.CradleInit = CradleInit
 
 
 # testing
 
 unless module.parent
-    new CradleSetup('test').ready console.log
+    new CradleInit('test').ready console.log
 
