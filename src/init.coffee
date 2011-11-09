@@ -68,7 +68,13 @@ class CradleInit
             @db.create (err, ok) =>
                 @log "db '#{@name}' created"
                 return callback?(err) if err
-                sync.call this, callback
+
+                # just throw them all in, because db is new and empty
+                designs = for own id, design of @designs
+                    design
+
+                @db.save designs, (err) =>
+                    callback?(err, @db)
 
 
 # exports
