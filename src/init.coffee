@@ -40,8 +40,8 @@ class CradleInit
         @config or= cache:on
 
         # initialize connection and database
-        conn = new cradle.Connection config.host, config.port, config
-        @db = conn.database name
+        @conn = new cradle.Connection @config.host, @config.port, @config
+        @db = @conn.database @name
 
 
     view: (name, map, reduce) ->
