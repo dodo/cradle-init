@@ -37,9 +37,7 @@ class CradleInit
             @log = -> # dummy
 
         # defaults
-        @config or=  cache:on
-        @config.host ?= "http://localhost"
-        @config.port ?= 5984
+        @config or= cache:on
 
         # initialize connection and database
         conn = new cradle.Connection config.host, config.port, config
