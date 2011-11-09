@@ -1,22 +1,5 @@
 cradle = require 'cradle'
-
-
-update_views = (callback) ->
-    ids = Object.keys @views
-    @db.get ids, (err, data) =>
-        return callback?(err) if err
-        (data.rows or data).forEach (el) => # cradle raw mode? doesnt matter
-            @log "#{el._id}:#{el._rev}", el
-            if (doc = el.doc ? el) # cradle raw mode? doesnt matter
-                @views[doc._id]._rev = doc._rev
-
-        views = ids.map (el) =>
-            @log @views[el]
-            @views[el]
-
-        @db.save views, (err) =>
-            callback?(err, @db)
-
+sync   = require './sync'
 
 
 class CradleInit
