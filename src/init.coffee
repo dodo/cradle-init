@@ -35,8 +35,8 @@ class CradleInit
             language:'javascript'
             _id:id
             views:{} # this is a must, because else cradle wouldnt recognize it as _design
-        @designs[type] ?= {}
-        @designs[type][name[1]] = value
+        @designs[id][type] ?= {}
+        @designs[id][type][name[1]] = value
 
 
     view: (name, map, reduce) =>
@@ -48,7 +48,7 @@ class CradleInit
 
 
     update: (name, value) =>
-        @_save, 'updates', name, value
+        @_save 'updates', name, value
         this
 
 
