@@ -9,7 +9,7 @@ class CradleInit
             opts = @config
             @config = @name
             @name = @config.name
-        @views = {}
+        @designs = {}
 
         # debugging
         if opts.debug
@@ -28,15 +28,32 @@ class CradleInit
         @db = @conn.database @name
 
 
+    _save: (type, name, value) ->
+        name = name.split '/'
+        id = "_design/#{name[0]}"
+        view = @designs[id] or=
+            language:'javascript'
+            _id:id
+            views:{} # this is a must, because else cradle wouldnt recognize it as _design
+        @designs[type] ?= {}
+        @designs[type][name[1]] = value
+
+
     view: (name, map, reduce) =>
         mapreduce = {map, reduce}
         if typeof map is 'object'
             mapreduce = map
+        @_save 'views', name, mapreduce
+        this
 
-        name = name.split '/'
-        id = "_design/#{name[0]}"
-        view = @views[id] or= { _id:id, views:{}, language:'javascript' }
-        view.views[name[1]] = mapreduce
+
+    update: (name, value) =>
+        @_save, 'updates', name, value
+        this
+
+
+    list: (name, value) =>
+        @_save 'lists', name, value
         this
 
 
@@ -45,14 +62,13 @@ class CradleInit
         @db.exists (err, exists) =>
             @log "does db '#{@name}' exist? #{exists and 'yes' or 'no'}"
 
-            return callback?(err)                    if err
-            return update_views.call this, callback  if exists
+            return callback?(err)            if err
+            return sync.call this, callback  if exists
 
             @db.create (err, ok) =>
                 @log "db '#{@name}' created"
-
                 return callback?(err) if err
-                update_views.call this, callback
+                sync.call this, callback
 
 
 # exports
