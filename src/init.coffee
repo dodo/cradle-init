@@ -44,7 +44,7 @@ class CradleInit
         @db = @conn.database @name
 
 
-    view: (name, map, reduce) ->
+    view: (name, map, reduce) =>
         mapreduce = {map, reduce}
         if typeof map is 'object'
             mapreduce = map
@@ -56,7 +56,7 @@ class CradleInit
         this
 
 
-    ready: (callback) ->
+    ready: (callback) =>
         @db.exists (err, exists) =>
             @log "does couchdb '#{@name}' exist? #{exists and 'yes' or 'no'}"
 
