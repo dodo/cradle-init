@@ -58,14 +58,15 @@ class CradleInit
 
 
     ready: (callback) =>
+        @log "connected to couchdb #{@conn.host}:#{@conn.port}"
         @db.exists (err, exists) =>
-            @log "does couchdb '#{@name}' exist? #{exists and 'yes' or 'no'}"
+            @log "does db '#{@name}' exist? #{exists and 'yes' or 'no'}"
 
             return callback?(err)                    if err
             return update_views.call this, callback  if exists
 
             @db.create (err, ok) =>
-                @log "couchdb '#{@name}' created"
+                @log "db '#{@name}' created"
 
                 return callback?(err) if err
                 update_views.call this, callback
