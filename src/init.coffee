@@ -22,6 +22,7 @@ class CradleSetup
     constructor: (@name, @config = {}, opts = {}) ->
 
         if typeof @name is 'object'
+            opts = @config
             @config = @name
             @name = @config.name
         @views = {}
@@ -38,7 +39,7 @@ class CradleSetup
         @config.port ?= 5984
 
         # initialize connection and database
-        conn = new cradle.Connection config.host,config.port,config
+        conn = new cradle.Connection config.host, config.port, config
         @db = conn.database name
 
 
@@ -49,7 +50,7 @@ class CradleSetup
 
         name = name.split '/'
         id = "_design/#{name[0]}"
-        view = @views[id] or= { _id:id, views:{} }
+        view = @views[id] or= { _id:id, views:{}, language:'javascript' }
         view.views[name[1]] = mapreduce
         this
 
@@ -57,11 +58,13 @@ class CradleSetup
     ready: (callback) ->
         @db.exists (err, exists) =>
             @log "does couchdb '#{@name}' exist? #{exists and 'yes' or 'no'}"
+
             return callback?(err)                    if err
             return update_views.call this, callback  if exists
 
             @db.create (err, ok) =>
                 @log "couchdb '#{@name}' created"
+
                 return callback?(err) if err
                 update_views.call this, callback
 
@@ -75,6 +78,5 @@ module.exports.CradleSetup = CradleSetup
 # testing
 
 unless module.parent
-    console.error "lol!!!"
     new CradleSetup('test').ready console.log
 
