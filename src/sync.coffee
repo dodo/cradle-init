@@ -52,6 +52,7 @@ sync = (done) ->
                 queue.push design
 
         @db.save queue, (err) =>
+            @log "db '#{@name}' up-to-date" unless err
             done?(err, @db)
 
 
