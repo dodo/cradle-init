@@ -1,4 +1,4 @@
-var init = require('../')
+var init = require('../cradle-init')
   , it = require('it-is').style('colour')
   , request = require('request')
   , dbname = 'cradle-init-test'

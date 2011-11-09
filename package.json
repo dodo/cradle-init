@@ -9,9 +9,12 @@
     "type": "git",
     "url": "https://github.com/dodo/cradle-init.git"
   },
-  "main": "./index.js",
+  "main": "./cradle-init.js",
   "scripts": {
-    "test": "meta-test test/*.js"
+    "test": "node-waf build && meta-test test/*.js",
+    "preinstall": "#preinstall DO NOTHING",
+    "install": "node-waf configure build",
+    "update": "node-waf build"
   },
   "engines": {
     "node": "0.4.x"
