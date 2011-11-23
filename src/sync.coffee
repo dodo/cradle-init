@@ -9,7 +9,8 @@ deep_diff = (t, a, b) ->
             if t is "views" # special case
                 return yes if "#{va.map}"    isnt "#{vb.map}"
                 return yes if "#{va.reduce}" isnt "#{vb.reduce}"
-            else if va isnt vb # doesnt exist or isnt the same
+            # doesnt exist or isnt the same (even as string)
+            else if `va != vb`
                 return yes
     return no
 
