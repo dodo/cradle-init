@@ -3,7 +3,7 @@
   "contributors": ["dodo (https://github.com/dodo)"],
   "name": "cradle-init",
   "description": "sets up cradle/couch nicely",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "http://github.com/dodo/cradle-init",
   "repository": {
     "type": "git",
@@ -27,3 +27,4 @@
     "request": "1.9.x"
   }
 }
+
