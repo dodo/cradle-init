@@ -17,7 +17,7 @@
     "update": "node-waf build"
   },
   "engines": {
-    "node": "0.4.x"
+    "node": ">= 0.4.x"
   },
   "dependencies": {
     "cradle" : "0.5.x"
