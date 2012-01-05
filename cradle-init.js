@@ -1,2 +1,2 @@
 
-module.exports = require('./build/default/init')
+module.exports = require('./lib/init')

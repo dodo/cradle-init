@@ -11,10 +11,8 @@
   },
   "main": "./cradle-init.js",
   "scripts": {
-    "test": "node-waf build && meta-test test/*.js",
-    "preinstall": "#preinstall DO NOTHING",
-    "install": "node-waf configure build",
-    "update": "node-waf build"
+    "test": "cake build && meta-test test/*.js",
+    "pre-publish": "cake build"
   },
   "engines": {
     "node": ">= 0.4.x"
@@ -23,6 +21,8 @@
     "cradle" : "0.5.x"
   },
   "devDependencies": {
+    "coffee-script": ">= 1.2.0",
+    "muffin": ">= 0.2.6",
     "it-is": "0.0.x",
     "request": "1.9.x"
   }
