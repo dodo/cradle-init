@@ -11,3 +11,6 @@ var db = require('cradle-init')(name, opts)
     }).ready(function (err,db){//create and intiailze database.
     })
 ```
+
+
+[![Build Status](https://secure.travis-ci.org/dodo/cradle-init.png)](http://travis-ci.org/dodo/cradle-init)
