@@ -73,16 +73,12 @@ class CradleInit
 
                 @db.save designs, (err) =>
                     callback?(err, @db)
+        this
 
 
 # exports
 
-module.exports = -> new CradleInit arguments...
+module.exports = (name, config, opts) -> new CradleInit(name, config, opts)
 module.exports.CradleInit = CradleInit
 
-
-# testing
-
-unless module.parent
-    new CradleInit('test').ready console.log
 

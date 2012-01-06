@@ -2,10 +2,17 @@ var init = require('../cradle-init')
   , it = require('it-is').style('colour')
   , request = require('request')
   , dbname = 'cradle-init-test'
+  , dbconf = {
+      host:'localhost',
+      port:5984,
+  }
+  , dbopts = {
+      debug:true,
+  }
 exports.__setup = function (test){
   request({
-    uri:'http://localhost:5984/cradle-init-test',
-    method:'DELETE'
+    uri:'http://'+dbconf.host+':'+dbconf.port+'/'+dbname,
+    method:'DELETE',
   },
   function (err){
     if(err)
@@ -26,7 +33,7 @@ exports ['will callback error if there is no couchdb running'] = function (test)
 */
 exports ['database exists'] = function (test){
 
-  init(dbname,{host:'localhost', port:5984}).ready(function (err,db){
+  init(dbname, dbconf, dbopts).ready(function (err,db){
     it(err).equal(null)
     it(db).ok()
     db.exists(function (err,exists){
@@ -37,20 +44,9 @@ exports ['database exists'] = function (test){
   })
 }
 
-exports ['database returned'] = function (test){
-
-  var returned =
-  init(dbname,{host:'localhost', port:5984}).ready(function (err,db){
-    it(err).equal(null)
-    it(db).ok()
-    it(returned).equal(db)
-    test.done()
-  })
-}
-
 exports ['intialize views'] = function (test){
   var map, reduce
-  init(dbname,{host:'localhost', port:5984})
+  init(dbname, dbconf, dbopts)
   .view('group/item', map = function (doc){
     emit(1,"HELLO")
   }, reduce = function (keys,values){
@@ -77,7 +73,7 @@ exports ['intialize views'] = function (test){
 
 exports['initialize multiple views'] = function (test){
   var map, map2
-  init(dbname,{host:'localhost', port:5984})
+  init(dbname, dbconf, dbopts)
   .view('group/item', map = function (doc){
     emit(1,"HELLO")
   })
