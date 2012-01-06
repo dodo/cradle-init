@@ -11,7 +11,7 @@
   },
   "main": "./cradle-init.js",
   "scripts": {
-    "test": "cake build && ./node_modules/nodeunit test/",
+    "test": "cake build && ./node_modules/.bin/nodeunit test/",
     "prepublish": "cake build"
   },
   "engines": {
