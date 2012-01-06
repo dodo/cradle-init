@@ -11,8 +11,8 @@
   },
   "main": "./cradle-init.js",
   "scripts": {
-    "test": "cake build && meta-test test/*.js",
-    "pre-publish": "cake build"
+    "test": "cake build && ./node_modules/nodeunit test/",
+    "prepublish": "cake build"
   },
   "engines": {
     "node": ">= 0.4.x"
@@ -23,6 +23,7 @@
   "devDependencies": {
     "coffee-script": ">= 1.2.0",
     "muffin": ">= 0.2.6",
+    "nodeunit": "0.6.4",
     "it-is": "0.0.x",
     "request": "1.9.x"
   }
