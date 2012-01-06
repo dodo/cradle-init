@@ -39,9 +39,8 @@ sync = (done) ->
 
         (data.rows or data).forEach (el) => # cradle raw mode? doesnt matter
             doc = el.doc ? el
-            design = @designs[doc?._id]
+            design = @designs[doc?._id ? doc.key]
             return unless design?
-
 
             if doc.error # whateva (mostly not_found, but i dont care)
                 @log "new design '#{design._id}'", design
