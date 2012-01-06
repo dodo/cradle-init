@@ -58,7 +58,7 @@ class CradleInit
 
 
     ready: (callback) =>
-        @log "connected to couchdb on #{@conn.host}:#{@conn.port} …"
+        @log "connecting to couchdb on #{@conn.host}:#{@conn.port} …"
         @db.exists (err, exists) =>
             return callback?(err)            if err
             return sync.call this, callback  if exists
